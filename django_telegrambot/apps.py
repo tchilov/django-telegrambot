@@ -163,6 +163,7 @@ class DjangoTelegramBot(AppConfig):
 
             allowed_updates = b.get('ALLOWED_UPDATES', None)
             timeout = b.get('TIMEOUT', None)
+            request_kwargs = b.get('REQUEST_KWARGS', None)
 
             if self.mode == WEBHOOK_MODE:
                 try:
@@ -188,7 +189,7 @@ class DjangoTelegramBot(AppConfig):
 
             else:
                 try:
-                    updater = Updater(token=token)
+                    updater = Updater(token=token, request_kwargs=request_kwargs)
                     bot = updater.bot
                     bot.delete_webhook()
                     DjangoTelegramBot.updaters.append(updater)
